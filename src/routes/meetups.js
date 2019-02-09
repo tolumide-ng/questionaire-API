@@ -5,9 +5,14 @@ import meetupsControllers from './../controllers/meetupsControllers';
 const router = express.Router();
 const { validateBody, schemas} = meetupsHelpers;
 
+
+
+
+
+router.get('/upcoming', meetupsControllers.findUpcomingMeetups);
 router.post('/', validateBody(schemas.authSchema), meetupsControllers.createMeetup);
-router.get('/:meetup-id', meetupsControllers.findMeetup);
-// router.get('/', meetupsControllers.findAllMeetups);
-// router.get('/upcoming', meetupsControllers.findUpcomingMeetups);
+router.get('/', meetupsControllers.findAllMeetups);
+router.get('/:id', meetupsControllers.findMeetup);
+router.delete('/:id', meetupsControllers.deleteMeetup);
 
 export default router;

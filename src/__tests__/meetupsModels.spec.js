@@ -23,4 +23,11 @@ describe('Handle all requests to meetupsModels', () => {
         createdMeetup.should.be.an('object');
         createdMeetup.should.have.property('id');
     });
+
+    it('should return an array object', () => {
+        const createdMeetup = meetupsModel.createMeetup(user);
+        const findOne = meetupsModel.findOneMeetup(createdMeetup.id);
+        findOne.should.be.an('object');
+        findOne.should.have.property('tags');
+    })
 })

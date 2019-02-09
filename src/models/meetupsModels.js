@@ -9,7 +9,7 @@ class Meetups {
     createMeetup(data) {
         const createdMeetup = {
             id: uuid.v4(),
-            createdOn: "new Date()",
+            createdOn: new Date(),
             location: data.location,
             topic: data.topic,
             happeningOn: data.happeningOn,
@@ -20,16 +20,23 @@ class Meetups {
     }
 
     findOneMeetup (data) {
-        return this.meetups.find(themeetup => themeetup.id === data.params.meetup-id);
+        return this.meetups.find(themeetup => themeetup.id === data);
     }
 
-    // findAllMeetups () {
-    //     return this.Meetups;
-    // }
+    findAllMeetups () {
+        return this.meetups;
+    }
 
-    // findUpcomingMeetups(){
-    //     return this.meetups.find(theMeetups => new Date(this.meetups.happeningOn) > new Date());
-    // }
+    deleteOneMeetup(data){
+        const indexOfMeetup = this.findOneMeetup(data);
+        const index = this.meetups.indexOf(indexOfMeetup);
+        this.meetups.splice(index, 1);
+        return {};
+    }
+
+    findUpcomingMeetups(){
+        return this.meetups.filter(theMeetups => new Date(theMeetups.happeningOn) > new Date());
+    }
 }
 
 export default new Meetups();

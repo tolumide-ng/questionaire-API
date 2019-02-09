@@ -8,14 +8,38 @@ const Meetup = {
     },
 
     findMeetup(req, res) {
-        console.log(`this is the meetup id : ${req.params.meetup-id}`)
-        const findTheMeetup = meetupsModels.findOneMeetup(req.params.meetup-id);
-        console.log('here now');
-        if (!findTheMeetup) {
+        const findTheMeetup = meetupsModels.findOneMeetup(req.params.id);
+        if (findTheMeetup.length < 1) {
             return res.status(404).json({ status: 404, error: 'No meetup with that id:- Please recheck the meetupId' });
         }
         return res.status(200).json({ status: 200, data: [findTheMeetup] })
     }, 
+
+    findAllMeetups (req, res) {
+        const allMeetups = meetupsModels.findAllMeetups();
+        if(allMeetups.length < 1){
+            return res.status(404).json({ status: 404, error: 'There are no meetups yet'});
+        }
+        return res.status(200).json({ status: 200, data: [allMeetups] });
+    },
+
+    deleteMeetup (req, res) {
+        const theMeetup = meetupsModels.findOneMeetup(req.params.id);
+        if(!theMeetup) {
+            return res.status(404).json({data: 'this meetup does not exist'});
+        }
+        const deletedMeetup = meetupsModels.deleteOneMeetup(req.params.id);
+        return res.status(204).json({data: 'meetup deleted'});
+    },
+
+    findUpcomingMeetups (req, res) {
+        const upcomingMeetups = meetupsModels.findUpcomingMeetups();
+        if(upcomingMeetups.length < 1 || !upcomingMeetups) { 
+            return res.status(404).json({ message: 'There are no upcoming meetups'})
+        }
+        return res.status(200).json( {status: 200, message: upcomingMeetups} );
+    }
+    
 }
 
 export default Meetup;
