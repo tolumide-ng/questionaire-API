@@ -19,9 +19,9 @@ class Meetups {
         return createdMeetup;
     }
 
-    // findOneMeetup (data) {
-    //     return this.meetups.find(themeetup => themeetup.id === data.params.meetup-id);
-    // }
+    findOneMeetup (data) {
+        return this.meetups.find(themeetup => themeetup.id === data.params.meetup-id);
+    }
 
     // findAllMeetups () {
     //     return this.Meetups;
