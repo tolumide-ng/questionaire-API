@@ -4,8 +4,15 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel server.js --out-dir build"
+    "start": "npm run build && nodemon build/server.js",
+    "test": "npm run build && nyc mocha build/__tests__/*.js --timeout 10000 --exit",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "clean": "rm -rf build",
+    "coveralls": "npm run coverage -- --report lcovonly && cat ./coverage/lcov.info |coveralls",
+    "build": "cross-env npm run clean && mkdir build && babel src -s -d build",
+    "production": "npm run build && node bin/production",
+    "dev-start": "cross-env babel-watch src/server.js",
+    "build-dir": "rimraf build/ && babel src/ --out-dir build/ && npm run test"
   },
   "repository": {
     "type": "git",
@@ -19,16 +26,21 @@
   "homepage": "https://github.com/tolumide-ng/questionaire-API#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "coveralls": "^3.0.2",
     "cross-env": "^5.2.0",
     "express": "^4.16.4",
+    "istanbul": "^0.4.5",
     "joi": "^14.3.1",
+    "mocha-lcov-reporter": "^1.3.0",
     "moment": "^2.24.0",
     "morgan": "^1.9.1",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/register": "^7.0.0",
     "babel-watch": "^7.0.0",
     "chai": "^4.2.0",
     "chai-http": "^4.2.1",

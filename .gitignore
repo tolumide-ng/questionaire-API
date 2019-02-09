@@ -1,3 +1,9 @@
 node_modules/
 package-lock.json
 build/
+notes
+.vscode/
+//subscribeToKinoCheck-on-youTube
+.nyc_output
+scripts
+coverage
