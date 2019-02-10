@@ -1,8 +1,6 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import faker from 'faker';
-import questionsModels from './../models/questionsModels';
-import meetupsModels from './../models/meetupsModels';
 
 chai.use(chaiHttp);
 
@@ -39,11 +37,22 @@ const fakeMeetupId = {
 
 // Create a question with all needed parameters
 const completeQuestion = {
-    createdBy: "Brymo",
+    createdBy: "",
     meetup: '',
     title: "the independence of Javascript",
     body: "When I first started blogging, I had always thought that was the end of everything, Like yh?",
     votes: 3
+}
+
+// Create a real User with all needed parameters
+const createRealUser = {
+    firstName: "Lauryl",
+    lastName: "Rounda",
+    otherName: "Blatynl",
+    email: "lauryl@gmail.com",
+    phoneNumber: 902333785982,
+    userName: "olaFlow",
+    isAdmin: true
 }
 
 
@@ -56,66 +65,78 @@ const completeQuestion = {
 
 describe('Js databse contains data before testing', () => {
     it('should return a 201 status code if question is made on an existing meetup', (done) => {
-        // First post a meetup
+        //First create a User
         chai.request(theServer)
-            .post('/v1/meetups')
+            .post('/v1/users')
             .set('Accept', '/application/json')
-            .send(completeMeetup)
+            .send(createRealUser)
             .end((err, res) => {
                 expect(res).to.have.status(201);
                 expect(res).to.be.json;
-                const id = res.body.data[0].id;
-                completeQuestion.meetup = id;
+                const userId = res.body.data[0].id;
 
-
-                // Then post a question using the generated id of the meetup
+                // Then post a meetup
                 chai.request(theServer)
-                    .post('/v1/questions')
+                    .post('/v1/meetups')
                     .set('Accept', '/application/json')
-                    .send(completeQuestion)
+                    .send(completeMeetup)
                     .end((err, res) => {
                         expect(res).to.have.status(201);
                         expect(res).to.be.json;
-                        expect(err).be.null;
-                        const questionId = res.body.data[0].id;
+                        const id = res.body.data[0].id;
+                        completeQuestion.meetup = id;
+                        completeQuestion.createdBy = userId;
 
-                        // Upvote the question
+
+                        // Then post a question using the generated id of the meetup
                         chai.request(theServer)
-                            .patch(`/v1/questions/${questionId}/upvote`)
+                            .post('/v1/questions')
                             .set('Accept', '/application/json')
+                            .send(completeQuestion)
                             .end((err, res) => {
-                                expect(res).to.have.status(200);
+                                expect(res).to.have.status(201);
                                 expect(res).to.be.json;
-                                expect(err).to.be.null;
+                                expect(err).be.null;
+                                const questionId = res.body.data[0].id;
 
-                                // Downvote the question
+                                // Upvote the question
                                 chai.request(theServer)
-                                    .patch(`/v1/questions/${questionId}/downvote`)
+                                    .patch(`/v1/questions/${questionId}/upvote`)
                                     .set('Accept', '/application/json')
                                     .end((err, res) => {
                                         expect(res).to.have.status(200);
                                         expect(res).to.be.json;
                                         expect(err).to.be.null;
 
-
-                                        //Upvote a non-existing question
+                                        // Downvote the question
                                         chai.request(theServer)
-                                            .patch(`/v1/questions/${id}/upvote`)
+                                            .patch(`/v1/questions/${questionId}/downvote`)
                                             .set('Accept', '/application/json')
                                             .end((err, res) => {
-                                                expect(res).to.have.status(404);
+                                                expect(res).to.have.status(200);
                                                 expect(res).to.be.json;
                                                 expect(err).to.be.null;
 
-                                                // Downvote a non-existing question
+
+                                                //Upvote a non-existing question
                                                 chai.request(theServer)
-                                                    .patch(`/v1/questions/${id}/downvote`)
+                                                    .patch(`/v1/questions/${id}/upvote`)
                                                     .set('Accept', '/application/json')
                                                     .end((err, res) => {
                                                         expect(res).to.have.status(404);
                                                         expect(res).to.be.json;
                                                         expect(err).to.be.null;
-                                                        done();
+
+                                                        // Downvote a non-existing question
+                                                        chai.request(theServer)
+                                                            .patch(`/v1/questions/${id}/downvote`)
+                                                            .set('Accept', '/application/json')
+                                                            .end((err, res) => {
+                                                                expect(res).to.have.status(404);
+                                                                expect(res).to.be.json;
+                                                                expect(err).to.be.null;
+                                                                done();
+                                                            });
                                                     });
                                             });
                                     });

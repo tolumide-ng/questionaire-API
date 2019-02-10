@@ -1,12 +1,17 @@
 import questionsModels from './../models/questionsModels';
 import meetupsModels from './../models/meetupsModels';
+import usersModels from './../models/usersModels';
 
 const Questions = {
     createQuestions(req, res) {
         const request = req.value.body;
         const confirmMeetupExist = meetupsModels.findOneMeetup(request.meetup);
+        const confirmUserExist = usersModels.findUser(request.createdBy);
         if (!confirmMeetupExist) {
             return res.status(404).json({ message: 'There is no meetup with such ID' })
+        }
+        if(!confirmUserExist) {
+            return res.status(404).json({ message: 'There is no user with that ID'})
         }
         const createTheQuestion = questionsModels.createQuestion(request);
         return res.status(201).json({ data: [createTheQuestion] });

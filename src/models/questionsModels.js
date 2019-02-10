@@ -7,17 +7,17 @@ class Questions {
     }
 
     createQuestion(data) {
-        const createdQuestion = {
+        const theCreatedQuestion = {
             id: uuid.v4(),
             createdOn: new Date(),
-            createdBy: data.createdy,
+            createdBy: data.createdBy,
             meetup: data.meetup, //must be an integer
             title: data.title,
             body: data.body, 
             votes: data.votes
         }
-        this.questions.push(createdQuestion);
-        return createdQuestion;
+        this.questions.push(theCreatedQuestion);
+        return theCreatedQuestion;
     }
     
     findQuestion(data) {
