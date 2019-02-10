@@ -19,6 +19,20 @@ class Questions {
         this.questions.push(createdQuestion);
         return createdQuestion;
     }
+    
+    findQuestion(data) {
+        return this.questions.find(question => question.id === data); 
+    }
+
+    upvoteQuestion(data) {
+        const findTheQuestion = this.findQuestion(data);
+        findTheQuestion.votes += 1;
+    }
+
+    downvoteQuestion(data) {
+        const findTheQuestion = this.findQuestion(data);
+        findTheQuestion.votes -= 1;
+    }
 }
 
 export default new Questions();

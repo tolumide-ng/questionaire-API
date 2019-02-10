@@ -10,10 +10,6 @@ const should = chai.should();
 const expect = chai.expect;
 
 const completeMeetup = {
-    // location: 'Gbagada', 
-    // topic: 'Eleniyan Javascript', 
-    // happeningOn: '2019/10/01', 
-    // tags: ['Influential', ' Educative']
     location: faker.address.city(),
     topic: faker.company.companyName(),
     happeningOn: faker.date.future(),
@@ -190,3 +186,13 @@ it('should return a 200 status code if there are upcoming meetups', (done) => {
                 });
         })
 });
+
+
+// describe('Empty Js database', () => {
+//     beforeEach((done) => {
+//         meetupsModels.meetups.splice(0, meetupsModels.meetups.length)
+//             .end((err, res) => {
+//                 done();
+//             });
+//     });
+// });

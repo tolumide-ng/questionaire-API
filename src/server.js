@@ -13,7 +13,6 @@ app.use(bodyParser.json());
 // Routes
 app.use('/v1/questions/', questionsRoutes);
 app.use('/v1/meetups/', meetupsRoutes);
-// app.use('/v1/questions', questionsRoutes);
 // app.use('v1/users', usersRoutes);
 // app.use('v1/rsvps', rsvpsRoutes);
 
