@@ -9,7 +9,7 @@ const Meetup = {
 
     findMeetup(req, res) {
         const findTheMeetup = meetupsModels.findOneMeetup(req.params.id);
-        if (findTheMeetup.length < 1) {
+        if (!findTheMeetup) {
             return res.status(404).json({ status: 404, error: 'No meetup with that id:- Please recheck the meetupId' });
         }
         return res.status(200).json({ status: 200, data: [findTheMeetup] })

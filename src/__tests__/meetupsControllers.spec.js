@@ -141,16 +141,16 @@ it('should return 404 if meetup to be deleted does not exist', (done) => {
         })
 });
 
-// it('should return 404 if specified meetup does not exist', (done) => {
-//     const id = '238905-4895ngu-di284'
-//     chai.request(theServer)
-//         .get(`/v1/meetups/${id}`)
-//         .end((err, res) => {
-//             expect(res).to.have.status(404);
-//             expect(res).to.be.json;
-//             done();
-//         })
-// });
+it('should return 404 if specified meetup does not exist', (done) => {
+    const id = '238905-4895ngu-di284'
+    chai.request(theServer)
+        .get(`/v1/meetups/${id}`)
+        .end((err, res) => {
+            expect(res).to.have.status(404);
+            expect(res).to.be.json;
+            done();
+        })
+});
 
 it('should return 404 if there are no upcoming meetups', (done) => {
     chai.request(theServer)

@@ -6,9 +6,6 @@ const router = express.Router();
 const { validateBody, schemas} = meetupsHelpers;
 
 
-
-
-
 router.get('/upcoming', meetupsControllers.findUpcomingMeetups);
 router.post('/', validateBody(schemas.authSchema), meetupsControllers.createMeetup);
 router.get('/', meetupsControllers.findAllMeetups);
