@@ -2,7 +2,7 @@ import express from 'express';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import meetupsRoutes from './routes/meetups';
-import meets from './controllers/meetupsControllers'
+import questionsRoutes from './routes/questions';
 
 const app = express();
 
@@ -11,8 +11,9 @@ app.use(express.json());app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Routes
+app.use('/v1/questions/', questionsRoutes);
 app.use('/v1/meetups/', meetupsRoutes);
-// app.use('/v1/questions/', questionsRoutes);
+// app.use('/v1/questions', questionsRoutes);
 // app.use('v1/users', usersRoutes);
 // app.use('v1/rsvps', rsvpsRoutes);
 
