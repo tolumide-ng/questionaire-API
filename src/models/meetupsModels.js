@@ -4,6 +4,7 @@ import uuid from 'uuid';
 class Meetups {
     constructor() {
         this.meetups = [];
+        this.rsvps = [];
     }
 
     createMeetup(data) {
@@ -36,6 +37,16 @@ class Meetups {
 
     findUpcomingMeetups(){
         return this.meetups.filter(theMeetups => new Date(theMeetups.happeningOn) > new Date());
+    }
+
+    rsvpMeetup(data) {
+        const rsvpUserMeetup = {
+            meetup: data.meetup,
+            topic: data.topic,
+            status: data.status,
+        }
+        this.rsvps.push(rsvpUserMeetup);
+        return rsvpUserMeetup;
     }
 }
 

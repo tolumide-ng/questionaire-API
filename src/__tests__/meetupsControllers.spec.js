@@ -22,6 +22,14 @@ const incompleteMeetup = {
     tags: [faker.lorem.words(), faker.lorem.words(), faker.lorem.words()]
 }
 
+// rsvps a meetup 
+const rsvpsMeetup = {
+    status: 'no'
+};
+
+// no status in rsvps meetup
+const fakeRvpsMeetup = {};
+
 const theServer = 'http://localhost:3000';
 
 describe('Empty Js database', () => {
@@ -196,3 +204,61 @@ it('should return a 200 status code if there are upcoming meetups', (done) => {
 //             });
 //     });
 // });
+
+
+
+// rsvps a meetup
+it('should return a 201 status code after user rsvps a meetup', (done) => {
+    chai.request(theServer)
+        .post('/v1/meetups')
+        .set('Accept', '/application/json')
+        .send(completeMeetup)
+        .end((err, res) => {
+            expect(res).to.have.status(201);
+            expect(res).to.be.json;
+            const id = res.body.data[0].id;
+
+
+            chai.request(theServer)
+                .post(`/v1/meetups/${id}/rsvps`)
+                .set('Accept', '/application/json')
+                .send(rsvpsMeetup)
+                .end((err, res) => {
+                    expect(res).to.have.status(201);
+                    expect(err).to.be.null;
+                    expect(res).to.be.json;
+
+                    //rsvps with wrong status yes~~no~~maybe
+                    // chai.request(theServer)
+                    //     .post(`/v1/meetups/${id}/rsvps`)
+                    //     .set('Accept', '/application/json')
+                    //     .send(fakeRvpsMeetup)
+                    //     .end((err, res) => {
+                    //         expect(res).to.have.status(400);
+                    //         expect(err).to.be.null;
+                    //         expect(res).to.be.json;
+
+                    chai.request(theServer)
+                        .delete(`/v1/meetups/${id}`)
+                        .end((err, res) => {
+                            expect(res).to.have.status(204);
+                            done();
+                            // });
+                        });
+                })
+        });
+});
+
+// rsvps a non-existing meetup
+it('should return 404 if there are no upcoming meetups', (done) => {
+    chai.request(theServer)
+        .post(`/v1/meetups/238hvg589203nf923-2nf8934bv/rsvps`)
+        .set('Accept', '/application/json')
+        .send(rsvpsMeetup)
+        .end((err, res) => {
+            expect(res).to.have.status(404);
+            expect(err).to.be.null;
+            expect(res).to.be.json;
+            done();
+        })
+});

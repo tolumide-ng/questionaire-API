@@ -1,4 +1,5 @@
 import meetupsModels from './../models/meetupsModels';
+import usersModels from './../models/usersModels'
 
 const Meetup = {
     createMeetup(req, res) {
@@ -38,8 +39,24 @@ const Meetup = {
             return res.status(404).json({ message: 'There are no upcoming meetups'})
         }
         return res.status(200).json( {status: 200, message: upcomingMeetups} );
-    }
-    
+    },
+
+    rsvpsForMeetups(req, res) {
+        const confirmMeetupExist = meetupsModels.findOneMeetup(req.params.id);
+        if(!confirmMeetupExist) {
+            return res.status(404).json({message: 'The meetup does not exist' });
+        }
+        console.log(req.body.status);
+        // if(req.body.status != 'yes' || 'no' || 'maybe'){
+        //     return res.status(400).json({ message: 'status must be yes||no||maybe'})
+        // }
+        const request = req.body;
+        console.log(request.status);
+        request.topic = confirmMeetupExist.topic;
+        request.meetup = req.params.id;
+        const rsvpsThisMeetup = meetupsModels.rsvpMeetup(request);
+        return res.status(201).json({ status: 201, data: rsvpsThisMeetup });
+    },
 }
 
 export default Meetup;

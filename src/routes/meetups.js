@@ -11,5 +11,6 @@ router.post('/', validateBody(schemas.authSchema), meetupsControllers.createMeet
 router.get('/', meetupsControllers.findAllMeetups);
 router.get('/:id', meetupsControllers.findMeetup);
 router.delete('/:id', meetupsControllers.deleteMeetup);
+router.post('/:id/rsvps', meetupsControllers.rsvpsForMeetups);
 
 export default router;
