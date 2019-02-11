@@ -17,9 +17,9 @@ app.use('/v1/users/', usersRoutes);
 app.use('/v1/questions/', questionsRoutes);
 app.use('/v1/meetups/', meetupsRoutes);
 
-app.get('/', (req, res, next) => {
-    return 'Welcome to beginning of this endpoint';
-})
+app.get('/', (req, res) => {
+    return res.status(200).json({ message: 'YAY! Congratulations on your first endpoint!'});
+});
 
 
 // Handle errors for requests to unavailable routes
