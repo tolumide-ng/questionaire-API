@@ -16,7 +16,10 @@ app.use(bodyParser.json());
 app.use('/v1/users/', usersRoutes);
 app.use('/v1/questions/', questionsRoutes);
 app.use('/v1/meetups/', meetupsRoutes);
-// app.use('/v1/rsvps', rsvpsRoutes);
+
+app.get('/', (req, res, next) => {
+    return 'Welcome to beginning of this endpoint';
+})
 
 
 // Handle errors for requests to unavailable routes
