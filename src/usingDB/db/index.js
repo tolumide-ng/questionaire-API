@@ -1,6 +1,6 @@
 import { Pool } from 'pg';
-import { dotenv } from 'dotenv';
-import { resolve } from 'path';
+import dotenv from 'dotenv';
+import '@babel/polyfill';
 
 dotenv.config();
 
@@ -10,7 +10,7 @@ const pool = new Pool({
 
 export default {
     query(text, params) {
-        return new Promise((rersolve, reject) => {
+        return new Promise((resolve, reject) => {
             pool.query(text, params)
                 .then((res) => {
                     resolve(res);
