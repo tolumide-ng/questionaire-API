@@ -1,7 +1,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import faker from 'faker';
-import uuid from 'uuid';
+import uuidv4 from 'uuid/v4';
 import server from './../../server'
 
 chai.use(chaiHttp);
@@ -10,12 +10,14 @@ const should = chai.should();
 const expect = chai.expect;
 
 const completeUser = {
+    uuidv4(),
     firstName: "Lauryl",
     lastName: "Rhonda",
     otherName: "Windsow",
     email: "damiel@gmail.com",
     phoneNumber: 30932210958,
     userName: "RhondaWindsow",
+    moment(new Date()),
     isAdmin: true
 };
 
