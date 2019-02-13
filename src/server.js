@@ -1,8 +1,9 @@
 import express from 'express';
+import '@babel/polyfill';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
-import meetupsRoutes from './routes/meetups';
-import questionsRoutes from './routes/questions';
+// import meetupsRoutes from './routes/meetups';
+// import questionsRoutes from './routes/questions';
 import usersRoutes from './routes/users';
 
 const app = express();
@@ -12,10 +13,9 @@ app.use(express.json());app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Routes
-
 app.use('/v1/users/', usersRoutes);
-app.use('/v1/questions/', questionsRoutes);
-app.use('/v1/meetups/', meetupsRoutes);
+// app.use('/v1/questions/', questionsRoutes);
+// app.use('/v1/meetups/', meetupsRoutes);
 
 app.get('/', (req, res) => {
     return res.status(200).json({ message: 'YAY! Congratulations on your first endpoint!'});

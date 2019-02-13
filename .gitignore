@@ -10,3 +10,4 @@ coverage
 bash.exe.stackdump
 Procfile
 .env
+src/usingJSObjects
