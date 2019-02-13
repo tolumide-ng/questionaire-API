@@ -1,6 +1,6 @@
 import express from 'express';
 import meetupsHelpers from './../helpers/meetupsHelpers';
-import meetupsControllers from './../controllers/meetupsControllers';
+import meetupsControllers from './../usingJSObjects/controllers/meetupsControllers';
 
 const router = express.Router();
 const { validateBody, schemas} = meetupsHelpers;
