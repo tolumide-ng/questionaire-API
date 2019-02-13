@@ -10,14 +10,12 @@ const should = chai.should();
 const expect = chai.expect;
 
 const completeUser = {
-    id: uuidv4(),
     firstName: "Lauryl",
     lastName: "Rhonda",
     otherName: "Windsow",
     email: "damiel@gmail.com",
     phoneNumber: 30932210958,
     userName: "RhondaWindsow",
-    registered: new Date(),
     isAdmin: true
 };
 
