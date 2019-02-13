@@ -28,14 +28,14 @@ const inCompleteUser = {
     isAdmin: true
 };
 
-const wronglyArrangedUser = {
-    firstName: "Lauryl",
-    otherName: "Windsow",
-    lastName: "Rhonda",
-    email: "damiel@gmail.com",
-    phoneNumber: 30932210958,
-    userName: "RhondaWindsow",
-    isAdmin: true
+const userInformation = {
+    "firstName": "Lauryl",
+	"lastName": "Rounda",
+	"otherName": "Blatynl",
+	"email": "lauryl@gmail.com",
+	"phoneNumber": 33785982,
+	"userName": "olaFlow",
+	"isAdmin": true
 };
 
 
@@ -46,7 +46,7 @@ describe('usersControllers', () => {
         //First create a User
         chai.request(server)
             .post('/v1/users')
-            .send(completeUser)
+            .send(userInformation)
             .end((err, res) => {
                 res.should.have.status(201);
                 expect(res).to.be.json;
