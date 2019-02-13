@@ -23,6 +23,7 @@ before_script:
   - npm install
   - npm run build
   - psql -c "CREATE DATABASE questionaire_api_1;" -U postgres
+  - node build/usingDb/db/db.js
 script:
   - npm test
 after_success:

@@ -1,5 +1,6 @@
 const { Pool } = require('pg');
 const dotenv = require('dotenv');
+import '@babel/polyfill';
 const { createTable, dropTable } = require('./queries');
 
 dotenv.config();
