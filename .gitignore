@@ -9,3 +9,4 @@ scripts
 coverage
 bash.exe.stackdump
 Procfile
+.env
