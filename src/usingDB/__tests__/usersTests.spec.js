@@ -10,14 +10,14 @@ const should = chai.should();
 const expect = chai.expect;
 
 const completeUser = {
-    uuidv4(),
+    id: uuidv4(),
     firstName: "Lauryl",
     lastName: "Rhonda",
     otherName: "Windsow",
     email: "damiel@gmail.com",
     phoneNumber: 30932210958,
     userName: "RhondaWindsow",
-    moment(new Date()),
+    registered: moment(new Date()),
     isAdmin: true
 };
 
@@ -61,7 +61,7 @@ describe('usersControllers', () => {
     it('should return a 422 status code if all paramters are not provided', (done) => {
         chai.request(server)
             .post('/v1/users')
-            .send(inCompleteUser)
+            .send(completeUser)
             .end((err, res) => {
                 res.should.have.status(422);
                 expect(res).to.be.json;
