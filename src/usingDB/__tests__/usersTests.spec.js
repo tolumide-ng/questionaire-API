@@ -17,7 +17,7 @@ const completeUser = {
     email: "damiel@gmail.com",
     phoneNumber: 30932210958,
     userName: "RhondaWindsow",
-    registered: moment(new Date()),
+    registered: new Date(),
     isAdmin: true
 };
 
@@ -48,7 +48,7 @@ describe('usersControllers', () => {
         //First create a User
         chai.request(server)
             .post('/v1/users')
-            .send(userInformation)
+            .send(completeUser)
             .end((err, res) => {
                 res.should.have.status(201);
                 expect(res).to.be.json;
@@ -61,7 +61,7 @@ describe('usersControllers', () => {
     it('should return a 422 status code if all paramters are not provided', (done) => {
         chai.request(server)
             .post('/v1/users')
-            .send(completeUser)
+            .send(inCompleteUser)
             .end((err, res) => {
                 res.should.have.status(422);
                 expect(res).to.be.json;
