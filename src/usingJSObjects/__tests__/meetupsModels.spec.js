@@ -1,7 +1,6 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import faker from 'faker';
-import server from './../server';
 import meetupsModel from './../models/meetupsModels';
 import uuid from 'uuid';
 
