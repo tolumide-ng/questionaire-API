@@ -5,7 +5,6 @@
   "main": "server.js",
   "scripts": {
     "start": "npm run build && nodemon build/server.js",
-    "test": "npm run build && nyc mocha build/usingDB/__tests__/*.js --timeout 10000 --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "clean": "rm -rf build",
     "coveralls": "npm run coverage -- --report lcovonly && cat ./coverage/lcov.info |coveralls",
