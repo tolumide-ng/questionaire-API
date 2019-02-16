@@ -1,16 +1,17 @@
 import express from 'express';
 import meetupsHelpers from './../helpers/meetupsHelpers';
-import meetupsControllers from './../usingJSObjects/controllers/meetupsControllers';
+import meetupsControllers from './../usingDB/controllers/meetupsControllers'
 
 const router = express.Router();
-const { validateBody, schemas} = meetupsHelpers;
+const { validateBody, schemas, schematic} = meetupsHelpers;
 
 
+router.post('/:id/rsvps', meetupsControllers.rsvpsForMeetups);
 router.get('/upcoming', meetupsControllers.findUpcomingMeetups);
 router.post('/', validateBody(schemas.authSchema), meetupsControllers.createMeetup);
 router.get('/', meetupsControllers.findAllMeetups);
+router.delete('/deleteall', meetupsControllers.deleteAllMeetup);
 router.get('/:id', meetupsControllers.findMeetup);
 router.delete('/:id', meetupsControllers.deleteMeetup);
-router.post('/:id/rsvps', meetupsControllers.rsvpsForMeetups);
 
 export default router;

@@ -6,11 +6,10 @@ const User = {
     // Create a meetup
     async createUser(req, res) {
         const text = `INSERT INTO
-        userTable(id, firstName, lastName, otherName, email, phoneNumber, userName, registered, isAdmin)
-        VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
+        userTable(firstName, lastName, otherName, email, phoneNumber, userName, registered, isAdmin)
+        VALUES($1, $2, $3, $4, $5, $6, $7, $8)
         returning *`;
         const values = [
-            uuidv4(),
             req.value.body.firstName,
             req.value.body.lastName,
             req.value.body.otherName,

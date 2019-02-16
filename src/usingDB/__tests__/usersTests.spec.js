@@ -1,45 +1,14 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import faker from 'faker';
 import uuidv4 from 'uuid/v4';
 import server from './../../server'
+import usersMockData from './mockData/usersMockData';
 
 chai.use(chaiHttp);
 
 const should = chai.should();
 const expect = chai.expect;
-
-const completeUser = {
-    firstName: "Lauryl",
-    lastName: "Rhonda",
-    otherName: "Windsow",
-    email: "damiel@gmail.com",
-    phoneNumber: 30932210958,
-    userName: "RhondaWindsow",
-    isAdmin: true
-};
-
-const inCompleteUser = {
-    firstName: "Lauryl",
-    otherName: "Windsow",
-    email: "damiel@gmail.com",
-    phoneNumber: 30932210958,
-    userName: "RhondaWindsow",
-    isAdmin: true
-};
-
-const userInformation = {
-    "firstName": "Lauryl",
-	"lastName": "Rounda",
-	"otherName": "Blatynl",
-	"email": "lauryl@gmail.com",
-	"phoneNumber": 33785982,
-	"userName": "olaFlow",
-	"isAdmin": true
-};
-
-
-
+const { completeUser, inCompleteUser, wronglyArranged } = usersMockData;
 
 describe('usersControllers', () => {
     it('should return a 201 status code if all paramters are provided', (done) => {
@@ -56,7 +25,7 @@ describe('usersControllers', () => {
     });
 
 
-    it('should return a 422 status code if all paramters are not provided', (done) => {
+    it('should return a 422 status code if all parameters are not provided', (done) => {
         chai.request(server)
             .post('/v1/users')
             .send(inCompleteUser)

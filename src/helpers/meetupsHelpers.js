@@ -19,7 +19,7 @@ export default {
             location: Joi.string().min(3).required(),
             topic: Joi.string().min(5).required(),
             happeningOn: Joi.date().min('now').required(),
-            tags: Joi.array().unique().required()
+            tags: Joi.array().unique().required(),
         })
-    }
+    },
 }

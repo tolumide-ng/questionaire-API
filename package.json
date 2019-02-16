@@ -10,7 +10,10 @@
     "coveralls": "npm run coverage -- --report lcovonly && cat ./coverage/lcov.info |coveralls",
     "build": "cross-env npm run clean && mkdir build && babel src -s -d build",
     "production": "npm run build && node bin/production",
+    "createTable": "babel-node src/usingDB/db/db createTheTables",
+    "dropTable": "node build/usingDB/db/db dropTheTables",
     "dev-start": "cross-env babel-watch src/server.js",
+    "test": "set NODE_ENV=test&&npm run createTable && npm run build && nyc mocha build/usingDB/__tests__/*.js --timeout 10000 --exit",
     "build-dir": "rimraf build/ && babel src/ --out-dir build/ && npm run test"
   },
   "engines": {
@@ -45,7 +48,9 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.2.2",
+    "@babel/core": "^7.3.3",
+    "@babel/node": "^7.2.2",
+    "@babel/plugin-transform-regenerator": "^7.0.0",
     "@babel/preset-env": "^7.3.1",
     "@babel/register": "^7.0.0",
     "babel-watch": "^7.0.0",
@@ -56,6 +61,6 @@
     "eslint-plugin-import": "^2.16.0",
     "faker": "^4.1.0",
     "mocha": "^5.2.0",
-    "nyc": "^13.2.0"
+    "nyc": "^13.3.0"
   }
 }
