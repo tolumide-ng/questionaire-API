@@ -15,7 +15,7 @@
     "dev-start": "cross-env babel-watch src/server.js",
     "test": "set NODE_ENV=test&&npm run dropTable && npm run createTable && npm run build && nyc mocha build/usingDB/__tests__/*.js --timeout 10000 --exit",
     "build-dir": "rimraf build/ && babel src/ --out-dir build/ && npm run test",
-    "createES6Table": "node src/usingDB/db/db createTables"
+    "createES6Table": "node src/usingDB/db/db createTheTables"
   },
   "engines": {
     "node": "10.x"
