@@ -13,6 +13,7 @@ addons:
     packages:
     - postgresql-10
     - postgresql-client-10
+host: localhost
 env:
   global:
     - export NODE-ENV=test
