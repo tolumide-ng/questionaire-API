@@ -13,7 +13,7 @@
     "createTable": "babel-node src/usingDB/db/db createTheTables",
     "dropTable": "node build/usingDB/db/db dropTheTables",
     "dev-start": "cross-env babel-watch src/server.js",
-    "test": "set NODE_ENV=test&&npm run createTable && npm run build && nyc mocha build/usingDB/__tests__/*.js --timeout 10000 --exit",
+    "test": "set NODE_ENV=test&&npm run dropTable && npm run createTable && npm run build && nyc mocha build/usingDB/__tests__/*.js --timeout 10000 --exit",
     "build-dir": "rimraf build/ && babel src/ --out-dir build/ && npm run test"
   },
   "engines": {

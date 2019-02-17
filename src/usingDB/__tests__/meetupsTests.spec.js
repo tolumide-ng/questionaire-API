@@ -1,85 +1,146 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import server from './../../server';
-import meetupsMockData from './mockData/meetupsMockData';
+import mockData from './mockData';
 
 chai.use(chaiHttp);
 
 const should = chai.should();
 const expect = chai.expect;
-const { completeMeetup, incompleteMeetup } = meetupsMockData;
+const { completeMeetup, incompleteMeetup, completeUser, wrongEventDetail, correctEventDetail} = mockData;
 
-
-describe('meetupsControllers', () => {
-    // CreateMeetup
-    it('should return a 201 status code if the meetup is created successfully', () => {
+describe('Unavailable MeetupControllers', () => {
+    beforeEach((done) => {
         chai.request(server)
-            .post('v1/meetups')
-            .send(completeMeetup)
+            .delete('/v1/meetups/deleteall')
             .end((err, res) => {
-                res.should.have.status(201);
-                expect(res).to.be.json;
-                res.body.should.have.property('data');
                 done();
             })
-    });
+    })
 
-    // incomplete parameters for post meetup 
-    it('should return a 400 status code if the meetup is NOT created successfully', () => {
+    it('should return a status code of 422', (done) => {
         chai.request(server)
-            .post('v1/meetups')
+            .post('/v1/meetups')
             .send(incompleteMeetup)
             .end((err, res) => {
-                res.should.have.status(201);
-                expect(res).to.be.json;
-                res.body.should.have.property('data');
+                res.should.have.status(422);
+                res.should.be.json;
+                done();
+            })
+    })
+
+    it('should get a non-existing specific meetup', (done) => {
+        chai.request(server)
+            .get(`/v1/meetups/120`)
+            .end((err, res) => {
+                res.should.have.status(404);
+                res.should.be.json;
+                done();
+            })
+    })
+
+    it('should get a 404 status-code when trying to delete a non-existent meetup', (done) => {
+        chai.request(server)
+            .delete('/v1/meetups/2145')
+            .end((err, res) => {
+                res.should.have.status(404);
+                res.should.be.json;
+                done();
+            })
+    })
+
+    it('should deleteall data in the table', (done) => {
+        chai.request(server)
+            .get(`/v1/meetups/deleteall`)
+            .end((err, res) => {
+                res.should.have.status(400);
+                res.should.be.json;
                 done();
             })
     });
 
-
-    // Find a specific existing meetup
-    it('should find the specified meetup', () => {
+    it('should find all meetups in the database', (done) => {
         chai.request(server)
-            .post('v1/meetups')
+            .get('/v1/meetups/')
+            .end((err, res) => {
+                res.should.have.status(404);
+                res.should.be.json;
+                done();
+            })
+    });
+
+    it('should return a 404 status code if any of the paramters is wrong', (done) => {
+        chai.request(server)
+            .post('/v1/meetups/abc/rsvps')
+            .send(wrongEventDetail)
+            .end((err, res) => {
+                res.should.have.status(404);
+                res.should.be.json;
+                done();
+            })
+    })
+
+    it('should return a 404 status code if there are no upcoming meetups', (done) => {
+        chai.request(server)
+            .get('/v1/meetups/upcoming')
+            .end((err, res) => {
+                res.should.have.status(404);
+                res.should.be.json;
+                done();
+            });
+    });
+});
+
+
+
+describe('Available Controllers', () => {
+    // afterEach((done) => {
+    //     chai.request(server)
+    //         .delete('/v1/meetups/deleteall')
+    //         .end((err, res) => {
+    //             done();
+    //         })
+    // });
+
+    it('should return a 201 status code', (done) => {
+        chai.request(server)
+            .post('/v1/meetups/')
             .send(completeMeetup)
             .end((err, res) => {
                 res.should.have.status(201);
-                expect(res).to.be.json;
-                const id = res.body.data[0].id;
-
-                chai.request(server)
-                    .get(`v1/meetups/${id}`)
-                    .end((err, res) => {
-                        res.should.have.status(200);
-                        expect(res).to.be.json;
-                        done();
-                    });
-            });
-
-    });
-
-    // Find non-existing meetup
-    it('should return a 400 status code from helper', () => {
-        chai.request(server)
-            .get(`v1/meetups/2w09545mv03-2mnv85n9`)
-            .end((err, res) => {
-                res.should.have.status(400);
-                expect(res).to.be.json;
+                res.should.be.json;
                 done();
-            });
+            })
     });
-    
 
-    // Find all existing meetups
-    it('should return a 400 status code from helper', () => {
+    it('should find all existing meetups', (done) => {
         chai.request(server)
-            .get(`v1/meetups/`)
+            .get('/v1/meetups/')
             .end((err, res) => {
                 res.should.have.status(200);
-                expect(res).to.be.json;
+                res.should.be.json;
                 done();
-            });
+            })
     });
 
+    it('should find all upcoming meetups', (done) => {
+        chai.request(server)
+            .get('/v1/meetups/upcoming/')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.should.be.json;
+                done();
+            })
+    });
+
+    // it('should get a 201 status code', (done) => {
+    //     chai.request(server)
+    //         .post(`/v1/meetups/${correctEventDetail.user}/rsvps/`)
+    //         .send(correctEventDetail)
+    //         .end((err, res) => {
+    //             res.should.have.status(201);
+    //             res.should.be.json;
+    //             done();
+    //         })
+    // })
 });

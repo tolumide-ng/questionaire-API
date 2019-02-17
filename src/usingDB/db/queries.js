@@ -11,14 +11,14 @@ const createTable = {
         email VARCHAR(50) NOT NULL,
         phoneNumber VARCHAR(15) NOT NULL,
         userName VARCHAR(50),
-        registered TIMESTAMP,
+        registered TIMESTAMP NOT NULL DEFAULT NOW(),
         isAdmin BOOLEAN NOT NULL DEFAULT false
     )`,
 
     meetupTable: `CREATE TABLE IF NOT EXISTS
     meetupTable(
         id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-        createdOn TIMESTAMP NOT NULL,
+        createdOn TIMESTAMP NOT NULL DEFAULT NOW(),
         location VARCHAR(255) NOT NULL,
         topic VARCHAR(50) NOT NULL,
         happeningOn DATE NOT NULL,
@@ -28,7 +28,7 @@ const createTable = {
     questionTable: `CREATE TABLE IF NOT EXISTS 
     questionTable(
         id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-        createdOn TIMESTAMP NOT NULL,
+        createdOn TIMESTAMP NOT NULL DEFAULT NOW(),
         createdBy INT NOT NULL,
         title VARCHAR(50) NOT NULL,
         body VARCHAR(250) NOT NULL,

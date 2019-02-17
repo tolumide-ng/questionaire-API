@@ -6,8 +6,9 @@ const router = express.Router();
 const { validateBody, schemas, schematic} = meetupsHelpers;
 
 
-router.post('/:id/rsvps', meetupsControllers.rsvpsForMeetups);
+
 router.get('/upcoming', meetupsControllers.findUpcomingMeetups);
+router.post('/:id/rsvps', meetupsControllers.rsvpsForMeetups);
 router.post('/', validateBody(schemas.authSchema), meetupsControllers.createMeetup);
 router.get('/', meetupsControllers.findAllMeetups);
 router.delete('/deleteall', meetupsControllers.deleteAllMeetup);
