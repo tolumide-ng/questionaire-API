@@ -1,27 +1,30 @@
 language: node_js
 node_js:
   - "stable"
-env:
-global:
-  - export NODE_ENV=test
 dist: trusty
+cache:
+ directories:
+   - "node_modules"
+services:
+  - postgresql
 addons:
   postgresql: "10"
   apt:
     packages:
     - postgresql-10
     - postgresql-client-10
-services:
-  - postgresql
-notifications:
-  email: true
-cache:
-  directories:
-    - node_modules
+host: localhost
+env:
+  global:
+    - export NODE-ENV=test
+    - PGPORT=5433
 before_script:
-  - psql -c 'create database questionaire_api_test;' -U postgres
-  - npm install
-script: 
-  - npm test
+ - npm install
+ - npm run build
+ - export NODE-ENV=test
+ - psql -c 'create database questionaire_api_test;' -U postgres
+ - npm run createTable
+script:
+ - npm test
 after_success:
-  - npm run coverage
+ - npm run coverage 
