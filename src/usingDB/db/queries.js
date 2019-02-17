@@ -47,7 +47,7 @@ const createTable = {
 
     commentsTable: `CREATE TABLE IF NOT EXISTS
     commentsTable(
-        id SERIAL PRIMARY KEY NOT NULL,y
+        id SERIAL PRIMARY KEY NOT NULL,
         comment VARCHAR(255) NOT NULL,
         user_id INT NOT NULL,
         question_id INT NOT NULL,
