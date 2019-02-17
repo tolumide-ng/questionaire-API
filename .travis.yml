@@ -1,9 +1,7 @@
 language: node_js
 node_js:
   - "stable"
-before_install:
-  - psql -c "psql -U postgres"
-  - psql -c "ALTER USER postgres WITH PASSWORD 'tolumide';" -U postgres
+dist: trusty
 cache:
  directories:
    - "node_modules"
@@ -19,11 +17,13 @@ host: localhost
 env:
   global:
     - export NODE-ENV=test
+    - PGPORT=5433
 before_script:
  - npm install
  - npm run build
- - psql -c 'CREATE DATABASE questionaire_api_test;' -U postgres
- - psql -c "ALTER USER postgres WITH PASSWORD 'tolumide';" -U postgres
+ - export NODE-ENV=test
+ - psql -c 'create database questionaire_api_test;' -U postgres
+ - npm run createTable
 script:
  - npm test
 after_success:
