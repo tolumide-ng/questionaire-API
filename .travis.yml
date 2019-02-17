@@ -7,7 +7,6 @@ cache:
    - "node_modules"
 services:
   - postgresql
-  - apt-get install postgresql-11
 addons:
   postgresql: "11"
   apt:
