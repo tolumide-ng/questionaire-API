@@ -21,7 +21,6 @@ env:
 before_script:
  - npm install
  - npm run build
- - export NODE-ENV=test
  - psql -c 'create database questionaire_api_test;' -U postgres
  - npm run createTable
 script:
