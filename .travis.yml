@@ -19,7 +19,6 @@ host: localhost
 env:
   global:
     - export NODE-ENV=test
-    - PGPORT=5432
 before_script:
  - npm install
  - npm run build
