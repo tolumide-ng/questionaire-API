@@ -2,7 +2,7 @@ language: node_js
 node_js:
   - "stable"
 before_install:
-  - psql -c
+  - psql -c "psql -U postgres"
   - psql -c "ALTER USER postgres WITH PASSWORD 'tolumide';" -U postgres
 cache:
  directories:
