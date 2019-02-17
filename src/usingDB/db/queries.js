@@ -1,5 +1,3 @@
-require('@babel/polyfill');
-
 
 const createTable = {
     userTable: `CREATE TABLE IF NOT EXISTS
