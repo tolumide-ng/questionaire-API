@@ -3,7 +3,7 @@ import '@babel/polyfill';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import meetupsRoutes from './routes/meetups';
-// import questionsRoutes from './routes/questions';
+import questionsRoutes from './routes/questions';
 import usersRoutes from './routes/users';
 
 const app = express();
@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 
 // Routes
 app.use('/v1/users/', usersRoutes);
-// app.use('/v1/questions/', questionsRoutes);
+app.use('/v1/questions/', questionsRoutes);
 app.use('/v1/meetups/', meetupsRoutes);
 
 app.get('/', (req, res) => {

@@ -36,7 +36,7 @@ const createTable = {
 
     rsvpTable: `CREATE TABLE IF NOT EXISTS
     rsvpTable(
-        id SERIAL PRIMARY KEY NOT NULL,
+        id SERIAL NOT NULL,
         user_id INT NOT NULL,
         meetup_id INT NOT NULL,
         status VARCHAR(50) NOT NULL,
