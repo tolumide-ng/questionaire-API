@@ -7,12 +7,13 @@ cache:
    - "node_modules"
 services:
   - postgresql
+  - apt-get install postgresql-11
 addons:
-  postgresql: "10"
+  postgresql: "11"
   apt:
     packages:
-    - postgresql-10
-    - postgresql-client-10
+    - postgresql-11
+    - postgresql-client-11
 host: localhost
 env:
   global:
