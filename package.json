@@ -10,7 +10,7 @@
     "coveralls": "npm run coverage -- --report lcovonly && cat ./coverage/lcov.info |coveralls",
     "build": "cross-env npm run clean && mkdir build && babel src -s -d build",
     "production": "npm run build && node bin/production",
-    "createTable": "babel-node src/usingDB/db/db createTheTables",
+    "createTable": "babel src/usingDB/db/db createTheTables",
     "dropTable": "node build/usingDB/db/db dropTheTables",
     "dev-start": "cross-env babel-watch src/server.js",
     "test": "set NODE_ENV=test&&npm run dropTable && npm run createTable && npm run build && nyc mocha build/usingDB/__tests__/*.js --timeout 10000 --exit",
