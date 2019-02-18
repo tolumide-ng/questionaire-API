@@ -21,7 +21,7 @@ describe('Question controllers', () => {
                 done();
             })
     });
-
+});
 //     it('A valid user and meetup should be able to post a question', () => {
 //         chai.request(server)
 //             .patch('v1/questions/1/upvote/')
