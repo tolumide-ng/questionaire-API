@@ -7,7 +7,7 @@ chai.use(chaiHttp);
 
 const should = chai.should();
 const expect = chai.expect;
-const { completeMeetup, incompleteMeetup, completeUser, wrongEventDetail, correctEventDetail} = mockData;
+const { completeMeetup, incompleteMeetup, completeQuestion, wrongEventDetail, correctEventDetail} = mockData;
 
 describe('Unavailable MeetupControllers', () => {
     beforeEach((done) => {
