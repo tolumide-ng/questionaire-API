@@ -22,7 +22,7 @@ describe('Question controllers', () => {
             })
     });
 
-    it('A valid user and meetup should be able to post a question', () => {
+    it('A valid user should be able to upvote a question', () => {
         chai.request(server)
             .patch('v1/questions/1/upvote/')
             .end((err, res) => {
@@ -32,7 +32,7 @@ describe('Question controllers', () => {
             })
     });
 
-    it('A valid user and meetup should be able to post a question', () => {
+    it('A valid user should be able to dowvote a question', () => {
         chai.request(server)
             .patch('v1/questions/1/downvote/')
             .end((err, res) => {
