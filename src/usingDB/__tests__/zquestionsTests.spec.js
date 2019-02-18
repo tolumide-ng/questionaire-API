@@ -31,7 +31,9 @@ describe('Question controllers', () => {
                 done();
             })
     });
+});
 
+describe('RSVPS a meetup', () => {
     it('A valid user should be able to dowvote a question', () => {
         chai.request(server)
             .patch('v1/questions/1/downvote/')
@@ -41,9 +43,7 @@ describe('Question controllers', () => {
                 done();
             })
     });
-});
-
-describe('RSVPS a meetup', () => {
+    
     it('should rsvps a meetup', (done) => {
         chai.request(server)
             .post('/v1/meetups/1/rsvps/')
