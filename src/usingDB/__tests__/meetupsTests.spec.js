@@ -135,7 +135,7 @@ describe('Available Controllers', () => {
 
     it('should be able to ask a question', (done) => {
         chai.request(server)
-            .post('/v1/questions/')
+            .post('/v1/questions')
             .send(completeQuestion)
             .end((err, res) => {
                 expect(res).to.have.status(201);
