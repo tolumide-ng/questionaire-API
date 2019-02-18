@@ -1,69 +1,35 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import faker from 'faker';
 import uuidv4 from 'uuid/v4';
 import server from './../../server'
+import mockData from './mockData';
 
 chai.use(chaiHttp);
 
 const should = chai.should();
 const expect = chai.expect;
+const { completeUser, inCompleteUser, wronglyArranged } = mockData;
 
-const completeUser = {
-    firstName: "Lauryl",
-    lastName: "Rhonda",
-    otherName: "Windsow",
-    email: "damiel@gmail.com",
-    phoneNumber: 30932210958,
-    userName: "RhondaWindsow",
-    isAdmin: true
-};
-
-const inCompleteUser = {
-    firstName: "Lauryl",
-    otherName: "Windsow",
-    email: "damiel@gmail.com",
-    phoneNumber: 30932210958,
-    userName: "RhondaWindsow",
-    isAdmin: true
-};
-
-const userInformation = {
-    "firstName": "Lauryl",
-	"lastName": "Rounda",
-	"otherName": "Blatynl",
-	"email": "lauryl@gmail.com",
-	"phoneNumber": 33785982,
-	"userName": "olaFlow",
-	"isAdmin": true
-};
-
-
-
-
-describe('usersControllers', () => {
-    it('should return a 201 status code if all paramters are provided', (done) => {
-        //First create a User
+describe('Users Controllers', () => {
+    it('should return a 201 status code for successful post', (done) => {
         chai.request(server)
             .post('/v1/users')
             .send(completeUser)
             .end((err, res) => {
                 res.should.have.status(201);
-                expect(res).to.be.json;
-                const userId = res.body.data[0].id;
+                res.should.be.json;
                 done();
-            });
+            })
     });
 
-
-    it('should return a 422 status code if all paramters are not provided', (done) => {
+    it('should return a 422 status code for incomplete paramters', (done) => {
         chai.request(server)
             .post('/v1/users')
             .send(inCompleteUser)
             .end((err, res) => {
                 res.should.have.status(422);
-                expect(res).to.be.json;
+                res.should.be.json;
                 done();
-            });
-    });
-});
+            })
+    })
+})

@@ -24,5 +24,5 @@ export default {
             userName: Joi.string().required(),
             isAdmin: Joi.boolean().required(),
         })
-    }
+    },
 }

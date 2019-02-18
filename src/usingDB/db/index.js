@@ -1,14 +1,16 @@
-import { Pool } from 'pg';
-import dotenv from 'dotenv';
-import '@babel/polyfill';
+const { Pool } = require('pg');
+const dotenv = require('dotenv');
 
 dotenv.config();
 
+// If environment is 'test' use the ...url_test link else use the main database
+const theDatabaseUrl = process.env.NODE_ENV === 'test' ? process.env.DATABASE_URL_TEST : process.env.DATABASE_URL
+
 const pool = new Pool({
-    connectionString: process.env.DATABASE_URL
+    connectionString: theDatabaseUrl
 });
 
-export default {
+module.exports = {
     query(text, params) {
         return new Promise((resolve, reject) => {
             pool.query(text, params)

@@ -15,9 +15,9 @@ export default {
 
     schemas: {
         authSchema: Joi.object().keys({
-            createdBy: Joi.string().min(3).required(),
-            meetup: Joi.string().min(3).required(),
-            title: Joi.string().min(5).required(),
+            userId: Joi.number().required(),
+            meetup: Joi.number().required(),
+            title: Joi.string().required(),
             body: Joi.string().required(),
             votes: Joi.number().required(),
 

@@ -1,34 +1,20 @@
 language: node_js
 node_js:
   - "stable"
-before_install:
-  - sudo sed -i -e '/local.*peer/s/postgres/all/' -e 's/peer\|md5/trust/g' /etc/postgresql/*/main/pg_hba.conf
-  - sudo service postgresql restart
-  - sleep 1
+dist: trusty
 cache:
-  directories:
-    - "node_modules"
+ directories:
+   - "node_modules"
 services:
   - postgresql
-addons:
-  postgresql: "10"
-  apt:
-    packages:
-      - postgresql-10
-      - postgresql-client-10
 env:
   global:
-    - PGPORT=5433
+    - PGPORT=5432
 before_script:
-  - npm install
-  - npm run build
-  - psql -c "CREATE DATABASE questionaire_api_1;" -U postgres
-  - node src/usingDB/db/db createTheTables
+ - npm install
+ - npm run build
+ - psql -c 'create database questionaire_api_test;' -U postgres
 script:
-  - npm test
+ - npm test
 after_success:
-  - npm run coverages
-
-
-
-
+ - npm run coverage 
