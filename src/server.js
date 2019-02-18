@@ -14,8 +14,8 @@ app.use(bodyParser.json());
 
 // Routes
 app.use('/v1/users/', usersRoutes);
-app.use('/v1/questions/', questionsRoutes);
 app.use('/v1/meetups/', meetupsRoutes);
+app.use('/v1/questions/', questionsRoutes);
 
 app.get('/', (req, res) => {
     return res.status(200).json({ message: 'YAY! Congratulations on your first endpoint!'});
