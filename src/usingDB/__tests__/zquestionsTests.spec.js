@@ -33,28 +33,28 @@ describe('Question controllers', () => {
     });
 });
 
-describe('Question controllers', () => {
-    it('should be able to ask a question', (done) => {
-        chai.request(server)
-            .post('/v1/questions/')
-            .send(completeQuestion)
-            .end((err, res) => {
-                expect(res).to.have.status(201);
-                res.should.be.json;
-                done();
-            })
-    });
+// describe('Question controllers', () => {
+//     it('should be able to ask a question', (done) => {
+//         chai.request(server)
+//             .post('/v1/questions/')
+//             .send(completeQuestion)
+//             .end((err, res) => {
+//                 expect(res).to.have.status(201);
+//                 res.should.be.json;
+//                 done();
+//             })
+//     });
 
-    it('A valid user should be able to downvote a question', () => {
-        chai.request(server)
-            .patch('v1/questions/1/downvote/')
-            .end((err, res) => {
-                expect(res).to.have.status(200);
-                res.should.be.json;
-                done();
-            })
-    });
-});
+//     it('A valid user should be able to downvote a question', () => {
+//         chai.request(server)
+//             .patch('v1/questions/1/downvote/')
+//             .end((err, res) => {
+//                 expect(res).to.have.status(200);
+//                 res.should.be.json;
+//                 done();
+//             })
+//     });
+// });
 
 
 describe('RSVPS a meetup', () => {
