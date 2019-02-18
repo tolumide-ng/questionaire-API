@@ -98,18 +98,14 @@ const Meetup = {
             // If User Id is valid, then register for the meetup
             try {
                 const { rows } = await db.query(confirmMeetupExists, [req.params.id]);
-                //confirm if user exist using the request.user submitted
+                //confirm if meetup exist using the request.meetup submitted
                 if (!rows[0]) {
                     return res.status(404).json({ status: 404, message: 'The meetup does not exist' });
                 }
                 const registerThisMeetup = `INSERT INTO rsvpTable(user_id, meetup_id, status)
                 VALUES($1,$2,$3)
                 returning *`;
-                const values = [
-                    req.body.user,
-                    req.body.meetup,
-                    req.body.status
-                ];
+                const values = [ req.body.user, req.body.meetup, req.body.status ];
                 try {
                     const { rows } = await db.query(registerThisMeetup, values);
                     return res.status(201).json({ status: 201, data: rows[0] });

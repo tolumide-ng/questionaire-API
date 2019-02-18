@@ -24,6 +24,17 @@ export default {
         isAdmin: true
     },
 
+    anotherCompleteUser: {
+        firstName: "Bkessing",
+        lastName: "Ajayi",
+        otherName: "Windsow",
+        email: "Nat@gmail.com",
+        phoneNumber: 2389507958,
+        userName: "MichaelFlaww",
+        isAdmin: true
+    },
+
+
     inCompleteUser: {
         firstName: "Lauryl",
         otherName: "Windsow",
@@ -53,5 +64,13 @@ export default {
         user: 1,
         meetup: 1,
         status: 'yes'
+    }, 
+
+    completeQuestion: {
+        userId: 1,
+        meetup: 1,
+        title: 'location',
+        body: 'what state would this be taking place?',
+        votes: 4
     }
 }

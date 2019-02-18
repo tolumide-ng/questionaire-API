@@ -1,4 +1,3 @@
-
 const createTable = {
     userTable: `CREATE TABLE IF NOT EXISTS
     userTable(
