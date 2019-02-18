@@ -133,17 +133,6 @@ describe('Available Controllers', () => {
             })
     });
 
-    it('should be able to ask a question', (done) => {
-        chai.request(server)
-            .post('/v1/questions')
-            .send(completeQuestion)
-            .end((err, res) => {
-                expect(res).to.have.status(201);
-                res.should.be.json;
-                done();
-            })
-    });
-
     // it('should get a 201 status code', (done) => {
     //     chai.request(server)
     //         .post(`/v1/meetups/${correctEventDetail.user}/rsvps/`)
@@ -156,4 +145,15 @@ describe('Available Controllers', () => {
     // })
 });
 
-
+// describe('RSVPS a meetup', () => {
+//     it('should rsvps a meetup', (done) => {
+//         chai.request(server)
+//             .post('/v1/meetups/rsvps/')
+//             .send(correctEventDetail)
+//             .end((err, res) => {
+//                 res.should.be.json;
+//                 expect(res).to.have.status(201);
+//                 done();
+//             })
+//     })
+// })

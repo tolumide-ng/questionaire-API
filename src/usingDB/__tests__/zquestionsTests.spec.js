@@ -34,7 +34,7 @@ describe('Question controllers', () => {
 
     it('A valid user and meetup should be able to post a question', () => {
         chai.request(server)
-            .post('v1/questions/1/downvote/')
+            .patch('v1/questions/1/downvote/')
             .end((err, res) => {
                 expect(res).to.have.status(200);
                 res.should.be.json;
