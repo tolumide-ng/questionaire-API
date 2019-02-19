@@ -132,17 +132,6 @@ describe('Available Controllers', () => {
                 done();
             })
     });
-
-    // it('should get a 201 status code', (done) => {
-    //     chai.request(server)
-    //         .post(`/v1/meetups/${correctEventDetail.user}/rsvps/`)
-    //         .send(correctEventDetail)
-    //         .end((err, res) => {
-    //             res.should.have.status(201);
-    //             res.should.be.json;
-    //             done();
-    //         })
-    // })
 });
 
 // describe('RSVPS a meetup', () => {
