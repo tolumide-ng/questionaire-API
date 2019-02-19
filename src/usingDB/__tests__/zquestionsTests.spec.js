@@ -22,15 +22,15 @@ describe('Question controllers', () => {
             })
     });
 
-    it('A valid user should be able to upvote a question', () => {
-        chai.request(server)
-            .patch('v1/questions/1/upvote/')
-            .end((err, res) => {
-                expect(res).to.have.status(200);
-                res.should.be.json;
-                done();
-            })
-    });
+    // it('A valid user should be able to upvote a question', () => {
+    //     chai.request(server)
+    //         .patch('v1/questions/1/upvote/')
+    //         .end((err, res) => {
+    //             expect(res).to.have.status(200);
+    //             res.should.be.json;
+    //             done();
+    //         })
+    // });
 });
 
 // describe('Question controllers', () => {
