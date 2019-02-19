@@ -74,6 +74,13 @@ export default {
         votes: 4
     },
 
+    inCompleteQuestion: {
+        userId: 1,
+        meetup: 1,
+        body: 'what state would this be taking place?',
+        votes: 4
+    },
+
     comments: {
         user: 1,
         comment: "There is a lot of sense in this question",

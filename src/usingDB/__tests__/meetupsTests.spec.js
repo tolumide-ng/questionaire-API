@@ -7,7 +7,7 @@ chai.use(chaiHttp);
 
 const should = chai.should();
 const expect = chai.expect;
-const { completeMeetup, incompleteMeetup, completeUser, wrongEventDetail, correctEventDetail} = mockData;
+const { completeMeetup, incompleteMeetup, completeUser, wrongEventDetail, correctEventDetail } = mockData;
 
 describe('Unavailable MeetupControllers', () => {
     beforeEach((done) => {
@@ -92,19 +92,10 @@ describe('Unavailable MeetupControllers', () => {
 });
 
 
-
-describe('Available Controllers', () => {
-    // afterEach((done) => {
-    //     chai.request(server)
-    //         .delete('/v1/meetups/deleteall')
-    //         .end((err, res) => {
-    //             done();
-    //         })
-    // });
-
+describe('create Meetup', () => {
     it('should return a 201 status code', (done) => {
         chai.request(server)
-            .post('/v1/meetups')
+            .post('/v1/meetups/')
             .send(completeMeetup)
             .end((err, res) => {
                 res.should.have.status(201);
@@ -112,20 +103,12 @@ describe('Available Controllers', () => {
                 done();
             })
     });
+});
 
+describe('FindMeetups', () => {
     it('should find all existing meetups', (done) => {
         chai.request(server)
-            .get('/v1/meetups')
-            .end((err, res) => {
-                res.should.have.status(200);
-                res.should.be.json;
-                done();
-            })
-    });
-
-    it('should find all upcoming meetups', (done) => {
-        chai.request(server)
-            .get('/v1/meetups/upcoming')
+            .get('/v1/meetups/')
             .end((err, res) => {
                 res.should.have.status(200);
                 res.should.be.json;
@@ -134,15 +117,14 @@ describe('Available Controllers', () => {
     });
 });
 
-// describe('RSVPS a meetup', () => {
-//     it('should rsvps a meetup', (done) => {
-//         chai.request(server)
-//             .post('/v1/meetups/rsvps/')
-//             .send(correctEventDetail)
-//             .end((err, res) => {
-//                 res.should.be.json;
-//                 expect(res).to.have.status(201);
-//                 done();
-//             })
-//     })
-// })
+describe('Upcoming Meetups', () => {
+    it('should find all upcoming meetups', (done) => {
+        chai.request(server)
+            .get('/v1/meetups/upcoming/')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.should.be.json;
+                done();
+            })
+    });
+});
