@@ -22,21 +22,9 @@ describe('Question controllers', () => {
             })
     });
 
-    // it('A valid user should be able to upvote a question', () => {
-    //     chai.request(server)
-    //         .patch('v1/questions/1/upvote/')
-    //         .end((err, res) => {
-    //             expect(res).to.have.status(200);
-    //             res.should.be.json;
-    //             done();
-    //         })
-    // });
-});
-
-describe('Question controllers', () => {
-    it('A valid user should be able to downvote a question', () => {
+    it('A valid user should be able to upvote a question', () => {
         chai.request(server)
-            .patch('v1/questions/1/downvote/')
+            .patch('v1/questions/1/upvote/')
             .end((err, res) => {
                 expect(res).to.have.status(200);
                 res.should.be.json;
@@ -44,6 +32,18 @@ describe('Question controllers', () => {
             })
     });
 });
+
+// describe('Question controllers', () => {
+//     it('A valid user should be able to downvote a question', () => {
+//         chai.request(server)
+//             .patch('v1/questions/1/downvote/')
+//             .end((err, res) => {
+//                 expect(res).to.have.status(200);
+//                 res.should.be.json;
+//                 done();
+//             })
+//     });
+// });
 
 
 describe('RSVPS a meetup', () => {
