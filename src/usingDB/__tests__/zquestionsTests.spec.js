@@ -63,7 +63,7 @@ describe('COMMENT a created question', () => {
 })
 
 describe('Downvote a question', () => {
-    it('A valid user should be able to downvote a question', () => {
+    it('A valid user should be able to downvote a question', (done) => {
         chai.request(server)
             .patch('v1/questions/1/downvote/')
             .end((err, res) => {
@@ -75,7 +75,7 @@ describe('Downvote a question', () => {
 });
 
 describe('Upvote a question', () => {
-    it('A valid user should be able to upvote a question', () => {
+    it('A valid user should be able to upvote a question', (done) => {
         chai.request(server)
             .patch('v1/questions/1/upvote/')
             .end((err, res) => {
