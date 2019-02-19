@@ -21,10 +21,12 @@ describe('Users Controllers', () => {
                 done();
             })
     });
+});
 
+describe('Incomplete parameters supplied', () => {
     it('should return a 422 status code for incomplete paramters', (done) => {
         chai.request(server)
-            .post('/v1/users')
+            .post('/v1/users/')
             .send(inCompleteUser)
             .end((err, res) => {
                 res.should.have.status(422);
@@ -38,7 +40,7 @@ describe('login/comments', () => {
     it('should return the users details with a 200 status code', (done) => {
         chai.request(server)
             .post('/v1/users/login/')
-            .send({user: 1})
+            .send({ user: 1 })
             .end((err, res) => {
                 res.should.have.status(200);
                 res.should.be.json;

@@ -7,7 +7,20 @@ chai.use(chaiHttp);
 
 const should = chai.should();
 const expect = chai.expect;
-const { completeMeetup, completeUser, completeQuestion, correctEventDetail, comments } = mockData;
+const { completeMeetup, completeUser, completeQuestion, correctEventDetail, comments, inCompleteQuestion } = mockData;
+
+describe('Incomplete parameters', () => {
+    it('should not ask a question', (done) => {
+        chai.request(server)
+            .post('/v1/questions/')
+            .send(inCompleteQuestion)
+            .end((err, res) => {
+                expect(res).to.have.status(422);
+                res.should.be.json;
+                done();
+            })
+    });
+})
 
 
 describe('Question controllers', () => {
@@ -21,30 +34,7 @@ describe('Question controllers', () => {
                 done();
             })
     });
-
-    // it('A valid user should be able to upvote a question', () => {
-    //     chai.request(server)
-    //         .patch('v1/questions/1/upvote/')
-    //         .end((err, res) => {
-    //             expect(res).to.have.status(200);
-    //             res.should.be.json;
-    //             done();
-    //         })
-    // });
 });
-
-// describe('Question controllers', () => {
-//     it('A valid user should be able to downvote a question', () => {
-//         chai.request(server)
-//             .patch('v1/questions/1/downvote/')
-//             .end((err, res) => {
-//                 expect(res).to.have.status(200);
-//                 res.should.be.json;
-//                 done();
-//             })
-//     });
-// });
-
 
 describe('RSVPS a meetup', () => {
     it('should rsvps a meetup', (done) => {
@@ -70,4 +60,28 @@ describe('COMMENT a created question', () => {
                 done();
             })
     })
+})
+
+describe('Downvote a question', () => {
+    it('A valid user should be able to downvote a question', (done) => {
+        chai.request(server)
+            .patch('/v1/questions/1/downvote/')
+            .end((err, res) => {
+                expect(res).to.have.status(200);
+                res.should.be.json;
+                done();
+            })
+    });
+});
+
+describe('Upvote a question', () => {
+    it('A valid user should be able to upvote a question', (done) => {
+        chai.request(server)
+            .patch('/v1/questions/1/upvote/')
+            .end((err, res) => {
+                expect(res).to.have.status(200);
+                res.should.be.json;
+                done();
+            })
+    });
 })
