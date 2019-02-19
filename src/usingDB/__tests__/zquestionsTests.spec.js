@@ -49,7 +49,7 @@ describe('Question controllers', () => {
 describe('RSVPS a meetup', () => {
     it('should rsvps a meetup', (done) => {
         chai.request(server)
-            .post('/v1/meetups/1/rsvps/')
+            .post('/v1/meetups/1/rsvps')
             .send(correctEventDetail)
             .end((err, res) => {
                 res.should.be.json;
@@ -62,7 +62,7 @@ describe('RSVPS a meetup', () => {
 describe('COMMENT a created question', () => {
     it('should retun the created comments with status code 201', (done) => {
         chai.request(server)
-            .post('/v1/users/comments/')
+            .post('/v1/users/comments')
             .send(comments)
             .end((err, res) => {
                 res.should.be.json;
