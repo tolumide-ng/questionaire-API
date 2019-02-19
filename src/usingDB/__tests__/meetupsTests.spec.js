@@ -104,7 +104,7 @@ describe('Available Controllers', () => {
 
     it('should return a 201 status code', (done) => {
         chai.request(server)
-            .post('/v1/meetups/')
+            .post('/v1/meetups')
             .send(completeMeetup)
             .end((err, res) => {
                 res.should.have.status(201);
@@ -115,7 +115,7 @@ describe('Available Controllers', () => {
 
     it('should find all existing meetups', (done) => {
         chai.request(server)
-            .get('/v1/meetups/')
+            .get('/v1/meetups')
             .end((err, res) => {
                 res.should.have.status(200);
                 res.should.be.json;
@@ -125,7 +125,7 @@ describe('Available Controllers', () => {
 
     it('should find all upcoming meetups', (done) => {
         chai.request(server)
-            .get('/v1/meetups/upcoming/')
+            .get('/v1/meetups/upcoming')
             .end((err, res) => {
                 res.should.have.status(200);
                 res.should.be.json;
