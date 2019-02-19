@@ -64,7 +64,7 @@ export default {
         user: 1,
         meetup: 1,
         status: 'yes'
-    }, 
+    },
 
     completeQuestion: {
         userId: 1,
@@ -72,5 +72,11 @@ export default {
         title: 'location',
         body: 'what state would this be taking place?',
         votes: 4
+    },
+
+    comments: {
+        user: 1,
+        comment: "There is a lot of sense in this question",
+        question: 1
     }
 }

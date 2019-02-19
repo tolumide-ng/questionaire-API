@@ -7,7 +7,7 @@ chai.use(chaiHttp);
 
 const should = chai.should();
 const expect = chai.expect;
-const { completeMeetup, completeUser, completeQuestion, correctEventDetail } = mockData;
+const { completeMeetup, completeUser, completeQuestion, correctEventDetail, comments } = mockData;
 
 
 describe('Question controllers', () => {
@@ -70,3 +70,15 @@ describe('RSVPS a meetup', () => {
     })
 });
 
+describe('COMMENT a created question', () => {
+    it('should retun the created comments with status code 201', (done) => {
+        chai.request(server)
+            .post('/v1/users/comments/')
+            .send(comments)
+            .end((err, res) => {
+                res.should.be.json;
+                res.should.have.status(201);
+                done();
+            })
+    })
+})

@@ -8,7 +8,7 @@ chai.use(chaiHttp);
 
 const should = chai.should();
 const expect = chai.expect;
-const { completeUser, inCompleteUser, wronglyArranged } = mockData;
+const { completeUser, inCompleteUser, comments } = mockData;
 
 describe('Users Controllers', () => {
     it('should return a 201 status code for successful post', (done) => {
@@ -44,5 +44,5 @@ describe('login/comments', () => {
                 res.should.be.json;
                 done();
             })
-    })
+    });
 })
