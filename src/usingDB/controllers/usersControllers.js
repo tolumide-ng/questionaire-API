@@ -3,7 +3,7 @@ import uuidv4 from 'uuid/v4';
 import db from './../db/index';
 
 const User = {
-    // Create a meetup
+    // Create a User
     async createUser(req, res) {
         const text = `INSERT INTO
         userTable(firstName, lastName, otherName, email, phoneNumber, userName, isAdmin)
@@ -21,12 +21,52 @@ const User = {
 
         try {
             const { rows } = await db.query(text, values);
-            return res.status(201).json({status: 201, data: [rows[0]]});
-        } catch(err) {
-          // POORLY ARRANGED SYNTAX
-            return res.status(400).json({data: 'could not save the user', status: `${err.name}, ${err.message}`});
+            return res.status(201).json({ status: 201, data: [rows[0]] });
+        } catch (err) {
+            return res.status(400).json({ data: 'could not save the user', status: `${err.name}, ${err.message}` });
+        }
+    },
+
+    // User can login
+    async login(req, res) {
+        const text = `SELECT * FROM userTable WHERE id=$1`;
+        const request = req.body;
+        const value = [request.user];
+        try {
+            const { rows } = await db.query(text, value);
+            if (!rows[0]) {
+                return res.status(404).json({ message: 'User does not exist' });
+            }
+            return res.status(200).json({ data: rows[0], message: 'login successful' });
+        } catch (err) {
+            return res.status(400).json({ message: `${err.name}, ${err.message}` });
+        }
+    },
+
+    async createComment(req, res) {
+        const text = `SELECT * FROM userTable WHERE id=$1`;
+        const value = [req.body.user];
+        try {
+            const { rows } = await db.query(text, value);
+            if (!rows[0]) {
+                return res.status(404).json({ message: 'There is no user with this id' });
+            }
+            try {
+                const text = `INSERT INTO commentsTable(comment, user_id, question_id)
+                VALUES($1, $2, $3)
+                returning *`;
+                const request = req.body;
+                const values = [request.comment, request.user, request.question];
+                const { rows } = await db.query(text, values);
+                return res.status(201).json({ status: '201', data: rows });
+            } catch (err) {
+                return res.status(400).json({ error: `${err.name}, ${err.message}` })
+            }
+        } catch (err) {
+            return res.status(400).json({ error: `${err.name}, ${err.message}` })
         }
     }
+
 }
 
 export default User;

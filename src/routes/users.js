@@ -6,5 +6,8 @@ const router = express.Router();
 const { validateBody, schemas } = usersHelpers;
 
 router.post('/', validateBody(schemas.authSchemas), usersControllers.createUser);
+router.post('/login/', usersControllers.login);
+router.post('/comments/', usersControllers.createComment)
+
 
 export default router;

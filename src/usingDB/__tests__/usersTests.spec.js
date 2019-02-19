@@ -32,4 +32,17 @@ describe('Users Controllers', () => {
                 done();
             })
     })
+});
+
+describe('login/comments', () => {
+    it('should return the users details with a 200 status code', (done) => {
+        chai.request(server)
+            .post('/v1/users/login/')
+            .send({user: 1})
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.should.be.json;
+                done();
+            })
+    })
 })
