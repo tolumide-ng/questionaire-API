@@ -3,6 +3,7 @@ const createTable = {
     userTable(
         id SERIAL PRIMARY KEY NOT NULL,
         firstName VARCHAR(50) NOT NULL,
+        password VARCHAR(50) NOT NULL,
         lastName VARCHAR(50) NOT NULL,
         otherName VARCHAR(50) NOT NULL,
         email VARCHAR(50) NOT NULL,

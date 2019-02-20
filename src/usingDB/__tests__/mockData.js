@@ -16,6 +16,7 @@ export default {
 
     completeUser: {
         firstName: "Lauryl",
+        password: 'Owonikoko41980',
         lastName: "Rhonda",
         otherName: "Windsow",
         email: "damiel@gmail.com",

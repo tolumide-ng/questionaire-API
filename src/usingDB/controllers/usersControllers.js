@@ -1,16 +1,29 @@
-import moment from 'moment';
-import uuidv4 from 'uuid/v4';
+import jwt from 'jsonwebtoken';
 import db from './../db/index';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const signToken = rows => {
+    return jwt.sign({
+        iss: 'tolumide',
+        sub: rows[0].id,
+        iat: new Date().getTime(),
+        exp: new Date().setDate(new Date().getDate() + 1)
+    }, process.env.SECRET)
+}
+
 
 const User = {
     // Create a User
     async createUser(req, res) {
         const text = `INSERT INTO
-        userTable(firstName, lastName, otherName, email, phoneNumber, userName, isAdmin)
-        VALUES($1, $2, $3, $4, $5, $6, $7)
+        userTable(firstName, password, lastName, otherName, email, phoneNumber, userName, isAdmin)
+        VALUES($1, $2, $3, $4, $5, $6, $7, $8)
         returning *`;
         const values = [
             req.value.body.firstName,
+            req.value.body.password,
             req.value.body.lastName,
             req.value.body.otherName,
             req.value.body.email,
@@ -21,7 +34,8 @@ const User = {
 
         try {
             const { rows } = await db.query(text, values);
-            return res.status(201).json({ status: 201, data: [rows[0]] });
+            const token = signToken(rows);
+            return res.status(201).json({ status: 201, data: [rows[0]], token });
         } catch (err) {
             return res.status(400).json({ data: 'could not save the user', status: `${err.name}, ${err.message}` });
         }
@@ -29,9 +43,9 @@ const User = {
 
     // User can login
     async login(req, res) {
-        const text = `SELECT * FROM userTable WHERE id=$1`;
-        const request = req.body;
-        const value = [request.user];
+        const text = `SELECT * FROM userTable WHERE email=$1`;
+        const request = req.value.body;
+        const value = [request.email];
         try {
             const { rows } = await db.query(text, value);
             if (!rows[0]) {
