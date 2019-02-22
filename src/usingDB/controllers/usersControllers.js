@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 import db from './../db/index';
 import dotenv from 'dotenv';
+import bcrypt from 'bcryptjs';
 
 dotenv.config();
 
@@ -13,6 +14,11 @@ const signToken = rows => {
     }, process.env.SECRET)
 }
 
+const helper = {
+    async hashPassword(password) {
+        return bcrypt.hash(password, await bcrypt.genSalt(10));
+    }
+}
 
 const User = {
     // Create a User
@@ -21,16 +27,11 @@ const User = {
         userTable(firstName, password, lastName, otherName, email, phoneNumber, userName, isAdmin)
         VALUES($1, $2, $3, $4, $5, $6, $7, $8)
         returning *`;
-        const values = [
-            req.value.body.firstName,
-            req.value.body.password,
-            req.value.body.lastName,
-            req.value.body.otherName,
-            req.value.body.email,
-            req.value.body.phoneNumber,
-            req.value.body.userName,
-            req.value.body.isAdmin
-        ];
+        // Generate a salt
+        const salt = await bcrypt.genSalt(10);
+        const {firstName, lastName, password, otherName, email, phoneNumber, userName, isAdmin} = req.value.body;
+        const theHashedPassword = await helper.hashPassword(password);
+        const values = [firstName, theHashedPassword, lastName,  otherName, email, phoneNumber, userName, isAdmin];
 
         try {
             const { rows } = await db.query(text, values);
@@ -51,26 +52,27 @@ const User = {
             if (!rows[0]) {
                 return res.status(404).json({ message: 'User does not exist' });
             }
-            return res.status(200).json({ data: rows[0], message: 'login successful' });
+            const token = signToken(rows);
+            return res.status(200).json({ data: rows[0], message: 'login successful', token });
         } catch (err) {
             return res.status(400).json({ message: `${err.name}, ${err.message}` });
         }
     },
 
     async createComment(req, res) {
-        const text = `SELECT * FROM userTable WHERE id=$1`;
-        const value = [req.body.user];
+        const text = `SELECT * FROM userTable WHERE email=$1`;
+        const value = [req.body.email];
         try {
             const { rows } = await db.query(text, value);
             if (!rows[0]) {
-                return res.status(404).json({ message: 'There is no user with this id' });
+                return res.status(401).json({ message: 'Email/Password authentication failed' });
             }
             try {
-                const text = `INSERT INTO commentsTable(comment, user_id, question_id)
+                const text = `INSERT INTO commentsTable(comment, email, question_id)
                 VALUES($1, $2, $3)
                 returning *`;
                 const request = req.body;
-                const values = [request.comment, request.user, request.question];
+                const values = [request.comment, request.email, request.question];
                 const { rows } = await db.query(text, values);
                 return res.status(201).json({ status: '201', data: rows });
             } catch (err) {

@@ -49,19 +49,6 @@ describe('RSVPS a meetup', () => {
     })
 });
 
-describe('COMMENT a created question', () => {
-    it('should retun the created comments with status code 201', (done) => {
-        chai.request(server)
-            .post('/v1/users/comments')
-            .send(comments)
-            .end((err, res) => {
-                res.should.be.json;
-                res.should.have.status(201);
-                done();
-            })
-    })
-})
-
 describe('Downvote a question', () => {
     it('A valid user should be able to downvote a question', (done) => {
         chai.request(server)
@@ -84,4 +71,16 @@ describe('Upvote a question', () => {
                 done();
             })
     });
+})
+
+describe('COMMENT a created question', () => {
+    it('should retun the created comments with status code 201', (done) => {
+        chai.request(server)
+            .post('/v1/users/comments')
+            .send(comments)
+            .end((err, res) => {
+                res.should.have.status(201);
+                done();
+            })
+    })
 })

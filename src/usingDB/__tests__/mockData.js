@@ -82,9 +82,8 @@ export default {
         votes: 4
     },
 
-    comments: {
-        user: 1,
-        comment: "There is a lot of sense in this question",
-        question: 1
-    }
+    comments: { 
+        email: 'damiel@gmail.com', 
+        password: 'Owonikoko41980', 
+        comment: 'this is a nice question?' }
 }

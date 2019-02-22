@@ -36,7 +36,7 @@ describe('Incomplete parameters supplied', () => {
     })
 });
 
-describe('login/comments', () => {
+describe('login', () => {
     it('should return the users details with a 200 status code', (done) => {
         chai.request(server)
             .post('/v1/users/login/')

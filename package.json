@@ -13,7 +13,7 @@
     "createTable": "node build/usingDB/db/db createTheTables",
     "dropTable": "node build/usingDB/db/db dropTheTables",
     "dev-start": "cross-env babel-watch src/server.js",
-    "test": "set NODE_ENV=test&&npm run dropTable && npm run createTable && npm run build && nyc mocha build/usingDB/__tests__/*.js --timeout 10000 --exit",
+    "test": "set NODE_ENV=test&&npm run build && npm run dropTable && npm run createTable && nyc mocha build/usingDB/__tests__/*.js --timeout 10000 --exit",
     "build-dir": "rimraf build/ && babel src/ --out-dir build/ && npm run test",
     "createES6Table": "node src/usingDB/db/db createTheTables"
   },
@@ -32,6 +32,7 @@
   "homepage": "https://github.com/tolumide-ng/questionaire-API#readme",
   "dependencies": {
     "@babel/polyfill": "^7.2.5",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "coveralls": "^3.0.2",
     "cross-env": "^5.2.0",
