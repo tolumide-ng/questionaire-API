@@ -26,6 +26,17 @@ export default {
     },
 
     anotherCompleteUser: {
+        firstName: "Andrea",
+        password: 'Fegotos',
+        lastName: "Lakyl",
+        otherName: "Windsow",
+        email: "bruty@gmail.com",
+        phoneNumber: 30932210958,
+        userName: "lomani",
+        isAdmin: true
+    },
+
+    anotherCompleteUser: {
         firstName: "Bkessing",
         lastName: "Ajayi",
         otherName: "Windsow",

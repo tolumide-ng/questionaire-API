@@ -7,7 +7,7 @@ chai.use(chaiHttp);
 
 const should = chai.should();
 const expect = chai.expect;
-const { completeMeetup, completeUser, completeQuestion, correctEventDetail, comments, inCompleteQuestion } = mockData;
+const { completeMeetup, anotherCompleteUser, completeQuestion, correctEventDetail, comments, inCompleteQuestion } = mockData;
 
 describe('Incomplete parameters', () => {
     it('should not ask a question', (done) => {
@@ -74,13 +74,36 @@ describe('Upvote a question', () => {
 })
 
 describe('COMMENT a created question', () => {
+    // let token;
+    // before((done) => {
+    //     chai.request(server)
+    //         .post('/v1/users/login/')
+    //         .send({ email: 'damiel@gmail.com', password: 'Owonikoko41980' })
+    //         .end((err, res) => {
+    //             token = token;
+    //             done();
+    //         })
+    // })
     it('should retun the created comments with status code 201', (done) => {
         chai.request(server)
-            .post('/v1/users/comments')
-            .send(comments)
+            .post('/v1/users/login/')
+            .send({ email: 'damiel@gmail.com', password: 'Owonikoko41980' })
             .end((err, res) => {
-                res.should.have.status(201);
-                done();
+                const token = res.body.token;
+
+                chai.request(server)
+                    .post('/v1/users/comments')
+                    .set( 'Authorization', `Bearer ${ token }` )
+                    .send({
+                        question: 1,
+                        email: "damiel@gmail.com",
+                        comment: "when is this taking place?",
+                        password: "Owonikoko41980"
+                    })
+                    .end((err, res) => {
+                        res.should.have.status(201);
+                        done();
+                    })
             })
     })
 })

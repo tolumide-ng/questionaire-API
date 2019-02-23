@@ -40,7 +40,7 @@ describe('login', () => {
     it('should return the users details with a 200 status code', (done) => {
         chai.request(server)
             .post('/v1/users/login/')
-            .send({ email: 'damiel@gmail.com', password: 'tomilola' })
+            .send({ email: 'damiel@gmail.com', password: 'Owonikoko41980' })
             .end((err, res) => {
                 res.should.have.status(200);
                 res.should.be.json;

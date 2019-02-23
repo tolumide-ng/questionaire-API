@@ -19,7 +19,7 @@ const helper = {
 // JSON WEB TOKENS STRATEGY
 passport.use(new JwtStrategy({
     jwtFromRequest: ExtractJwt.fromHeader('authorization'),
-    secretOrKey: process.env.SECRET
+    secretOrKey: process.env.SECRET,
 }, async (payload, done) => {
     try {
         // Find the users specified in token
@@ -30,7 +30,6 @@ passport.use(new JwtStrategy({
         if (!rows[0]) {
             return done(null, false);
         }
-
         // Otherwise, return the user
         done(null, rows[0]);
     } catch (error) {

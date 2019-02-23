@@ -8,10 +8,8 @@ const Question = {
             const confirmUserExist = `SELECT * FROM userTable WHERE id=$1`;
             const { rows } = await db.query(confirmUserExist, [request.userId]);
             if (!rows[0]) {
-                console.log('nothing!')
                 return res.status(404).json({ message: 'Could not find any user with this Id' });
             }
-            console.log(rows);
             try {
                 const confirmMeetupExist = `SELECT * FROM meetupTable WHERE id=$1`;
                 const { rows } = await db.query(confirmMeetupExist, [request.meetup]);
@@ -23,12 +21,9 @@ const Question = {
                 VALUES($1, $2, $3, $4)
                 returning *`;
                 const values = [request.userId, request.title, request.body, request.votes];
-                console.log(values);
 
                 try {
-                    console.log('last search');
                     const { rows } = await db.query(text, values);
-                    console.log(rows);
                     return res.status(201).json({ status: 201, data: [rows[0]] });
 
                 } catch (err) {

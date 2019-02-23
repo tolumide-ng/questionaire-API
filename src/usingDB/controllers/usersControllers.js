@@ -53,6 +53,7 @@ const User = {
                 return res.status(404).json({ message: 'User does not exist' });
             }
             const token = signToken(rows);
+
             return res.status(200).json({ data: rows[0], message: 'login successful', token });
         } catch (err) {
             return res.status(400).json({ message: `${err.name}, ${err.message}` });
