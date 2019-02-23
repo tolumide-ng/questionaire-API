@@ -36,11 +36,11 @@ describe('Incomplete parameters supplied', () => {
     })
 });
 
-describe('login/comments', () => {
+describe('login', () => {
     it('should return the users details with a 200 status code', (done) => {
         chai.request(server)
             .post('/v1/users/login/')
-            .send({ user: 1 })
+            .send({ email: 'damiel@gmail.com', password: 'Owonikoko41980' })
             .end((err, res) => {
                 res.should.have.status(200);
                 res.should.be.json;

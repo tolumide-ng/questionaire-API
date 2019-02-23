@@ -16,7 +16,8 @@ export default {
 
     schemas: {
         authSchemas: Joi.object().keys({
-            firstName: Joi.string().required(), 
+            firstName: Joi.string().required(),
+            password: Joi.string().required(),
             lastName: Joi.string().required(),
             otherName: Joi.string().required(),
             email: Joi.string().email().required(),
@@ -25,4 +26,11 @@ export default {
             isAdmin: Joi.boolean().required(),
         })
     },
+
+    loginSchema: {
+        authSchemas: Joi.object().keys({
+            email: Joi.string().required(),
+            password: Joi.string().required(),
+        })
+    }
 }

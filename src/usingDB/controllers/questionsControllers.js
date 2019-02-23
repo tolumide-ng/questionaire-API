@@ -38,7 +38,7 @@ const Question = {
     },
 
     async upvoteQuestion(req, res) {
-        const findTheQuestion = `SELECT * FROM questionTable WHERE id=$1`;
+        const findTheQuestion = `SELECT * FROM questionTable WHERE question_id=$1`;
         try {
             const { rows } = await db.query(findTheQuestion, [req.params.id]);
             if (!rows[0]) {
@@ -47,7 +47,7 @@ const Question = {
             const newQuestionValue = rows[0].votes + 1;
             try {
                 const values = [newQuestionValue, req.params.id];
-                const upvoteTheQuestion = `UPDATE questionTable SET votes=$1 WHERE id=$2`;
+                const upvoteTheQuestion = `UPDATE questionTable SET votes=$1 WHERE question_id=$2`;
                 const { rows } = await db.query(upvoteTheQuestion, values);
                 return res.status(200).json({data: 'Upvote successful', question: rows[0] });
             } catch (err) {
@@ -60,7 +60,7 @@ const Question = {
     },
 
     async downvoteQuestion(req, res) {
-        const findTheQuestion = `SELECT * FROM questionTable WHERE id=$1`;
+        const findTheQuestion = `SELECT * FROM questionTable WHERE question_id=$1`;
         try {
             const { rows } = await db.query(findTheQuestion, [req.params.id]);
             if (!rows[0]) {
@@ -69,7 +69,7 @@ const Question = {
             const newQuestionValue = rows[0].votes - 1;
             try {
                 const values = [newQuestionValue, req.params.id];
-                const downvoteTheQuestion = `UPDATE questionTable SET votes=$1 WHERE id=$2`;
+                const downvoteTheQuestion = `UPDATE questionTable SET votes=$1 WHERE question_id=$2`;
                 const { rows } = await db.query(downvoteTheQuestion, values);
                 return res.status(200).json({data: 'Downvote successful', question: rows[0] });
             } catch (err) {

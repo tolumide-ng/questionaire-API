@@ -16,11 +16,23 @@ export default {
 
     completeUser: {
         firstName: "Lauryl",
+        password: 'Owonikoko41980',
         lastName: "Rhonda",
         otherName: "Windsow",
         email: "damiel@gmail.com",
         phoneNumber: 30932210958,
         userName: "RhondaWindsow",
+        isAdmin: true
+    },
+
+    anotherCompleteUser: {
+        firstName: "Andrea",
+        password: 'Fegotos',
+        lastName: "Lakyl",
+        otherName: "Windsow",
+        email: "bruty@gmail.com",
+        phoneNumber: 30932210958,
+        userName: "lomani",
         isAdmin: true
     },
 
@@ -81,9 +93,8 @@ export default {
         votes: 4
     },
 
-    comments: {
-        user: 1,
-        comment: "There is a lot of sense in this question",
-        question: 1
-    }
+    comments: { 
+        email: 'damiel@gmail.com', 
+        password: 'Owonikoko41980', 
+        comment: 'this is a nice question?' }
 }

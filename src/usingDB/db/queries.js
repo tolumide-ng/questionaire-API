@@ -1,58 +1,62 @@
+// compile first nbefore recreating table
+
+
 const createTable = {
     userTable: `CREATE TABLE IF NOT EXISTS
-    userTable(
-        id SERIAL PRIMARY KEY NOT NULL,
-        firstName VARCHAR(50) NOT NULL,
-        lastName VARCHAR(50) NOT NULL,
-        otherName VARCHAR(50) NOT NULL,
-        email VARCHAR(50) NOT NULL,
-        phoneNumber VARCHAR(15) NOT NULL,
-        userName VARCHAR(50),
-        registered TIMESTAMP NOT NULL DEFAULT NOW(),
-        isAdmin BOOLEAN NOT NULL DEFAULT false
-    )`,
+        userTable(
+            id SERIAL PRIMARY KEY NOT NULL UNIQUE,
+            firstName TEXT NOT NULL,
+            password TEXT NOT NULL,
+            lastName TEXT NOT NULL,
+            otherName TEXT NOT NULL,
+            email TEXT NOT NULL UNIQUE,
+            phoneNumber TEXT NOT NULL,
+            userName TEXT,
+            registered TIMESTAMP NOT NULL DEFAULT NOW(),
+            isAdmin BOOLEAN NOT NULL DEFAULT false
+        )`,
 
     meetupTable: `CREATE TABLE IF NOT EXISTS
-    meetupTable(
-        id SERIAL PRIMARY KEY NOT NULL,
-        createdOn TIMESTAMP NOT NULL DEFAULT NOW(),
-        location VARCHAR(255) NOT NULL,
-        topic VARCHAR(50) NOT NULL,
-        happeningOn DATE NOT NULL,
-        tags VARCHAR(255)
-    )`,
+        meetupTable(
+            id SERIAL PRIMARY KEY NOT NULL UNIQUE,
+            createdOn TIMESTAMP NOT NULL DEFAULT NOW(),
+            location TEXT NOT NULL,
+            topic TEXT NOT NULL,
+            happeningOn DATE NOT NULL,
+            tags TEXT
+        )`,
 
     questionTable: `CREATE TABLE IF NOT EXISTS 
-    questionTable(
-        id SERIAL PRIMARY KEY NOT NULL,
-        createdOn TIMESTAMP NOT NULL DEFAULT NOW(),
-        createdBy INT NOT NULL,
-        title VARCHAR(50) NOT NULL,
-        body VARCHAR(250) NOT NULL,
-        votes INT NOT NULL,
-        FOREIGN KEY(createdBy) REFERENCES userTable(id) ON DELETE CASCADE
-    )`,
+        questionTable(
+            question_id SERIAL PRIMARY KEY NOT NULL UNIQUE,
+            createdOn TIMESTAMP NOT NULL DEFAULT NOW(),
+            createdBy INT NOT NULL,
+            title VARCHAR(50) NOT NULL,
+            body VARCHAR(250) NOT NULL,
+            votes INT NOT NULL,
+            FOREIGN KEY(createdBy) REFERENCES userTable(id) ON DELETE CASCADE
+        )`,
 
     rsvpTable: `CREATE TABLE IF NOT EXISTS
-    rsvpTable(
-        id SERIAL NOT NULL,
-        user_id INT NOT NULL,
-        meetup_id INT NOT NULL,
-        status VARCHAR(50) NOT NULL,
-        FOREIGN KEY(user_id) REFERENCES userTable(id) ON DELETE CASCADE,
-        FOREIGN KEY(meetup_id) REFERENCES meetupTable(id) ON DELETE CASCADE,
-        PRIMARY KEY(user_id, meetup_id)
-    )`,
+        rsvpTable(
+            id SERIAL NOT NULL UNIQUE,
+            user_id INT NOT NULL,
+            meetup_id INT NOT NULL,
+            status VARCHAR(50) NOT NULL,
+            FOREIGN KEY(user_id) REFERENCES userTable(id) ON DELETE CASCADE,
+            FOREIGN KEY(meetup_id) REFERENCES meetupTable(id) ON DELETE CASCADE,
+            PRIMARY KEY(user_id, meetup_id)
+        )`,
 
     commentsTable: `CREATE TABLE IF NOT EXISTS
-    commentsTable(
-        id SERIAL PRIMARY KEY NOT NULL,
-        comment VARCHAR(255) NOT NULL,
-        user_id INT NOT NULL,
-        question_id INT NOT NULL,
-        FOREIGN KEY(user_id) REFERENCES userTable(id) ON DELETE CASCADE,
-        FOREIGN KEY(question_id) REFERENCES questionTable(id) ON DELETE CASCADE
-    )`,
+        commentsTable(
+            id SERIAL PRIMARY KEY NOT NULL UNIQUE,
+            comment VARCHAR(255) NOT NULL,
+            email VARCHAR(50) NOT NULL,
+            question_id INT NOT NULL,
+            FOREIGN KEY(email) REFERENCES userTable(email) ON DELETE CASCADE,
+            FOREIGN KEY(question_id) REFERENCES questionTable(question_id) ON DELETE CASCADE
+        )`
 };
 
 const dropTable = {
